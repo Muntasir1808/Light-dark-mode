@@ -37,12 +37,28 @@ function switchTheme(event) {
   // console.log(event.target.checked);
   if (event.target.checked) {
     document.documentElement.setAttribute("data-theme", "dark");
+    // setting theme for local storage [arguments are given as key:value pairs]
+    localStorage.setItem('theme', 'dark');
     darkMode();
   } else {
     document.documentElement.setAttribute("data-theme", "light");
+    localStorage.setItem('theme', 'light');
     lightMode();
   }
 }
 
 //Event Listener
 toggleSwitch.addEventListener("change", switchTheme);
+
+//Check Local Storage For Theme
+const currentTheme = localStorage.getItem('theme');
+// it will print null in the console because first time there is no local storage
+// console.log(curretTheme);
+if(currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+        darkMode();
+    }
+}
